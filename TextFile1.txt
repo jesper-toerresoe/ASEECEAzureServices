@@ -1,0 +1,1 @@
+Data Source=yy6x87k68z.database.windows.net;Integrated Security=False;User ID=jrt;Password=********;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
