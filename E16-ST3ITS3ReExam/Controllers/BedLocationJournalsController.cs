@@ -47,8 +47,8 @@ namespace E16_ST3ITS3ReExam.Controllers
         }
         /// <summary>
         /// Ved en ændring af en sengs placering skal dette request bruges.
-        /// Kræver at, sengejournalen der rettes er blevet oprettet. En journal oprettes med eet "POST request". 
-        /// Opaterer en given sengejournal udpeget med id, hvor id i request path SKAL SVARE til BedLocationJournalId, som  givet i medsendte DTO under payload.
+        /// Kræver at, sengejournalen der rettes er blevet oprettet (En journal oprettes med et "POST request"). 
+        /// PUT request opaterer en given sengejournal udpeget med id, hvor id i request path SKAL SVARE til BedLocationJournalId, som  givet i medsendte DTO under payload.
         /// Sengens forrige placering tilføjes i journalens historiske liste, FormerBedLocations.
         /// En tilføjet historisk placering SKAL HAVE FormerBedLocationId sat til værdien 0. FormerBedLocationId bliver tildelt en værdi automatisk.
         /// BEMÆRK Eksisterende historiske placeringer som måtte være i listen MÅ IKKE ændres.
