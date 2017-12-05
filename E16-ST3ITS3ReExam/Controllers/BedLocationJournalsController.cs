@@ -17,7 +17,7 @@ namespace E16_ST3ITS3ReExam.Controllers
     {
         private BedJournalsContext db = new BedJournalsContext();
         /// <summary>
-        /// Henter ALLE uploaded journaler for alle senge på hele hospitalet.
+        /// Henter ALLE gemte journaler for alle senge på hele hospitalet.
         /// Hver journal omfatter en liste/historik over tidligere placeringer.
         /// </summary>
         /// <returns></returns>

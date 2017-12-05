@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Results;
 using System.Web.Http.Description;
 using VenueServiceASEECE.Models;
 
@@ -16,13 +17,21 @@ namespace VenueServiceASEECE.Controllers
     public class EventsController : ApiController
     {
         private VenueServiceASEECEContext db = new VenueServiceASEECEContext();
-
+        /// <summary>
+        /// Henter alle Events registreret på VenueServiceASEECE uagtet tilhørsforhold
+        /// til et Venue
+        /// </summary>
+        /// <returns></returns>
         // GET: api/Events
         public IQueryable<Event> GetEvents()
         {
             return db.Events;
         }
-
+        /// <summary>
+        /// Henter det med ID specificerede Event og kun dette Event!
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: api/Events/5
         [ResponseType(typeof(Event))]
         public async Task<IHttpActionResult> GetEvent(int id)
@@ -35,7 +44,14 @@ namespace VenueServiceASEECE.Controllers
 
             return Ok(@event);
         }
-
+        /// <summary>
+        /// Opdater det med ID specificerede Event og kun dette Event!
+        /// Hvis Event skal flyttes til andet Venue skal Event slettes med DELETE fra VeneueServiceASEECE
+        /// Derefter tilknyttes Event det ønskede Venue og dette venue skal opdateres med PUT.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="event"></param>
+        /// <returns></returns>
         // PUT: api/Events/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutEvent(int id, Event @event)
@@ -71,21 +87,32 @@ namespace VenueServiceASEECE.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Events
-        [ResponseType(typeof(Event))]
-        public async Task<IHttpActionResult> PostEvent(Event @event)
+        /// <summary>
+        /// Opret Event er kun muligt sammen med oprettelse elller ændring af Venue
+        /// </summary>
+        /// <returns>HTTP Code 400</returns>
+        [ResponseType(typeof(void))]
+        public  StatusCodeResult PostEvent(/*Event @event*/)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            return StatusCode(HttpStatusCode.BadRequest);
+            //return this.BadRequest();
 
-            db.Events.Add(@event);
-            await db.SaveChangesAsync();
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
-            return CreatedAtRoute("DefaultApi", new { id = @event.Id }, @event);
+            //db.Events.Add(@event);
+            //await db.SaveChangesAsync();
+
+            //return CreatedAtRoute("DefaultApi", new { id = @event.Id }, @event);
         }
 
+        /// <summary>
+        /// Sletter det med Id angivet Event og KUN dette"
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // DELETE: api/Events/5
         [ResponseType(typeof(Event))]
         public async Task<IHttpActionResult> DeleteEvent(int id)
@@ -101,7 +128,10 @@ namespace VenueServiceASEECE.Controllers
 
             return Ok(@event);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)

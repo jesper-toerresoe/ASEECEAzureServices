@@ -31,13 +31,15 @@ namespace VenueServiceASEECE
              * http://stackoverflow.com/questions/20980241/how-do-i-sub-in-json-net-as-model-binder-for-asp-net-mvc-controllers
              * 
              */
-            var jsonSerializerSettings = new JsonSerializerSettings
-            {
-                PreserveReferencesHandling = PreserveReferencesHandling.Objects
-            };
+           
 
-            config.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.JsonFormatter);
-            config.Formatters.Add(new J);
+            //var jsonSerializerSettings = new JsonSerializerSettings
+            //{
+            //    PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            //};
+
+            //GlobalConfiguration.Configuration.Formatters.Clear();
+            //GlobalConfiguration.Configuration.Formatters.Add(new JsonNetFormatter(jsonSerializerSettings));
         }
     }
 }

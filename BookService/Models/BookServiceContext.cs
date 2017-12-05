@@ -17,6 +17,7 @@ namespace BookService.Models
     
         public BookServiceContext() : base("name=BookServiceContext")
         {
+
         }
 
         public System.Data.Entity.DbSet<BookService.Models.Author> Authors { get; set; }
