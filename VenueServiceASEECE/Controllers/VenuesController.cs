@@ -51,12 +51,12 @@ namespace VenueServiceASEECE.Controllers
         /// Opdatere et givent Venue identificeret med Id. Værdierne fra det medsendte 
         /// Venue DTO opdaterer det udpegede Venue på venueservice, dette omfatter også ændringer og tilføjelser
         /// i listen af Events (CommingEvents). For nye Events i Event listen skal Id være 0 (nul) mens eksiterende Event kan rettes
-        /// forudsæt Id for Event IKKE ændres.
+        /// forudsat Id for Event IKKE ændres.
         /// Kræver at, Venue der rettes er blevet oprettet (En Venue oprettes med et "POST request").
         /// </summary>
         /// <param name="id"> Eks 3</param>
         /// <param name="venue"></param>
-        /// <returns></returns>
+        /// <returns>HTTP 201 og en kopi af Venue sammen med liste af events (uændrede,rettede som nye events) </returns>
         // PUT: api/Venues/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutVenue(int id, Venue venue)
@@ -96,8 +96,10 @@ namespace VenueServiceASEECE.Controllers
                     throw;
                 }
             }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            venue = await db.Venues.Include(v => v.CommingEvents).SingleOrDefaultAsync(p => p.Id == id);
+            return CreatedAtRoute("DefaultApi", new { id = venue.Id }, venue);
+            //return Ok(venue);
+            //return StatusCode(HttpStatusCode.NoContent);
         }
         /// <summary>
         /// Opretter et Venue med eventuelle tilhørende Events.
